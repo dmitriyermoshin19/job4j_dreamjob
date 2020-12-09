@@ -17,7 +17,7 @@
   </properties>
 
   <!--
-  <dependency> hamcrest, junit, log4j, servlet-api
+  <dependency> hamcrest, junit, log4j, servlet-api, jstl
      <profile>
      <plugin> javadoc, checkstyle, jacoco
     -->
@@ -53,6 +53,12 @@
       <artifactId>javax.servlet-api</artifactId>
       <version>4.0.1</version>
       <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
     </dependency>
 
   </dependencies>

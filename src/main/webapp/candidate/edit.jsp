@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.model.Candidate" %>
 <%@ page import="ru.job4j.dream.store.PsqlStore" %>
@@ -23,18 +24,27 @@
 <body>
 <%
     String id = request.getParameter("id");
-    Candidate can = new Candidate(0, "");
+    Candidate can = new Candidate(0, "", 0);
     if (id != null) {
         can = PsqlStore.instOf().findCandidateById(Integer.parseInt(id));
+    }
+
+    String photoId = (String) request.getAttribute("photoId");
+    if (photoId == null && can.getId() > 0) {
+        photoId = String.valueOf(can.getPhotoId());
     }
 %>
 <div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                <% if (id == null) { %>
-                Новый кандидат.
+                <% if (id == null) {
+                    if (photoId == null) { %>
+                <a href='<c:redirect url="/upload"/>'></a>
                 <% } else { %>
+                Новый кандидат.
+                <% }
+                    } else { %>
                 Редактирование кандидата.
                 <% } %>
             </div>
@@ -43,6 +53,7 @@
                     <div class="form-group">
                         <label>Имя</label>
                         <input type="text" class="form-control" name="name" value="<%=can.getName()%>">
+                        <input type="hidden" name="photoId" value="<%=photoId%>">
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>

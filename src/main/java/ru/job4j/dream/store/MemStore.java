@@ -1,9 +1,11 @@
 package ru.job4j.dream.store;
 
 import ru.job4j.dream.model.Candidate;
+import ru.job4j.dream.model.Photo;
 import ru.job4j.dream.model.Post;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -19,9 +21,9 @@ public class MemStore implements Store {
         posts.put(1, new Post(1, "Junior Java Job"));
         posts.put(2, new Post(2, "Middle Java Job"));
         posts.put(3, new Post(3, "Senior Java Job"));
-        candidates.put(1, new Candidate(1, "Junior Java"));
-        candidates.put(2, new Candidate(2, "Middle Java"));
-        candidates.put(3, new Candidate(3, "Senior Java"));
+        candidates.put(1, new Candidate(1, "Junior Java", 0));
+        candidates.put(2, new Candidate(2, "Middle Java", 0));
+        candidates.put(3, new Candidate(3, "Senior Java", 0));
     }
 
     public static MemStore instOf() {
@@ -62,5 +64,20 @@ public class MemStore implements Store {
     @Override
     public Candidate findCandidateById(int id) {
         return candidates.get(id);
+    }
+
+    @Override
+    public Photo findPhotoById(int id) {
+        return null;
+    }
+
+    @Override
+    public Photo createPhoto(Photo photo) {
+        return null;
+    }
+
+    @Override
+    public List<String> findAllNamePhoto() {
+        return null;
     }
 }

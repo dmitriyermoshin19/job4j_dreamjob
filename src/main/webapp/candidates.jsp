@@ -1,7 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="ru.job4j.dream.store.MemStore" %>
-<%@ page import="ru.job4j.dream.model.Candidate" %>
-<%@ page import="java.util.Collection" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
@@ -35,6 +32,7 @@
                     <thead>
                     <tr>
                         <th scope="col">Названия</th>
+                        <th scope="col">Фото</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -45,6 +43,20 @@
                                 <i class="fa fa-edit mr-3"></i>
                             </a>
                             <c:out value="${can.name}"/>
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <img src="<c:url value='/download?photoId=${can.photoId}'/>" width="100px" height="100px"/>
+                                    </td>
+                                </tr>
+                                <tr style="text-align: center">
+                                    <td>
+                                        <a href="<c:url value='/download?photoId=${can.photoId}'/>">Download</a>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                     </c:forEach>

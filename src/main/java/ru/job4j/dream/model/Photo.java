@@ -2,13 +2,17 @@ package ru.job4j.dream.model;
 
 import java.util.Objects;
 
-public class Post {
+public class Photo {
     private int id;
-    private String name;
+    private String title;
 
-    public Post(int id, String name) {
+    public Photo(String title) {
+        this.title = title;
+    }
+
+    public Photo(int id, String title) {
         this.id = id;
-        this.name = name;
+        this.title = title;
     }
 
     public int getId() {
@@ -19,12 +23,12 @@ public class Post {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override
@@ -35,8 +39,8 @@ public class Post {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Post post = (Post) o;
-        return id == post.id;
+        Photo photo = (Photo) o;
+        return id == photo.id;
     }
 
     @Override
@@ -44,3 +48,4 @@ public class Post {
         return Objects.hash(id);
     }
 }
+

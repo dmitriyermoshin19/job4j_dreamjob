@@ -6,9 +6,6 @@ import ru.job4j.dream.model.Post;
 public class PsqlMain {
     public static void main(String[] args) {
         Store store = PsqlStore.instOf();
-        for(int i = 0; i < 1000000; i++) {
-            System.out.println(i);
-        }
 
         System.out.println("store.findAllCandidates():");
         store.saveCandidate(new Candidate(0, "I am Middle Java Developer", 1));

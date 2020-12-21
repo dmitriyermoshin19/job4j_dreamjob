@@ -39,6 +39,22 @@
             return result;
         }
 
+        function addRow() {
+            if (validate()) {
+                let name = $("#name").val();
+                let surname = $("#surname").val();
+                let description = $("#description").val();
+                let gender = $("#gender").val();
+                $('#table tr:last').after(
+                    '<tr>'
+                    + '<td>' + name +'</td>'
+                    + '<td>' + surname + '</td>'
+                    + '<td>' + gender + '</td>'
+                    + '<td>' + description + '</td>'
+                    + '</tr>'
+                );
+            }
+        }
     </script>
 </head>
 <body>
@@ -65,15 +81,15 @@
                         <label for="gender" style="font-weight: bold">Пол</label>
                         <select class="custom-select" id="gender" name="name">
                             <option value="">Выберите пол</option>
-                            <option value="male">Мужской</option>
-                            <option value="female">Женский</option>
+                            <option value="Мужской">Мужской</option>
+                            <option value="Женский">Женский</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="description" style="font-weight: bold">Описание</label>
                         <input type="text" class="form-control" name="password" id="description" placeholder="Введите описание специальности...">
                     </div>
-                    <button type="submit" class="btn btn-primary" onclick="validate()">Отправить данные</button>
+                    <button type="reset" class="btn btn-primary" onclick="addRow()">Отправить данные</button>
                 </form>
             </div>
         </div>
@@ -92,12 +108,6 @@
                     </thead>
                     <tbody>
                     <thead style="text-align: center">
-                    <tr>
-                        <td>Дмитрий</td>
-                        <td>Ермошин</td>
-                        <td>мужской</td>
-                        <td>Начинающий разработчик</td>
-                    </tr>
                     </tbody>
                 </table>
             </div>

@@ -1,19 +1,15 @@
 package ru.job4j.dream.store;
 
-import ru.job4j.dream.model.Candidate;
-import ru.job4j.dream.model.Post;
+import ru.job4j.dream.model.City;
 
 public class PsqlMain {
     public static void main(String[] args) {
         Store store = PsqlStore.instOf();
 
-        System.out.println("store.findAllCandidates():");
-        store.saveCandidate(new Candidate(0, "I am Middle Java Developer", 1));
-        store.saveCandidate(new Candidate(1, "Senior Java Developer", 2));
-        for (Candidate candidate : store.findAllCandidates())  {
-            System.out.println(candidate.getId() + " " + candidate.getName());
+        System.out.println("store.findAllCity():");
+        store.createCity(new City("SPB"));
+        for (City c : store.findAllCity())  {
+            System.out.println(c.getId() + " " + c.getNameCity());
         }
-       // System.out.println("store.findCandidateById(3).getName():");
-      //  System.out.println(store.findCandidateById(3).getName());
     }
 }

@@ -1,15 +1,17 @@
+drop table if exists post;
 CREATE TABLE post (
     id SERIAL PRIMARY KEY,
     name TEXT
 );
-
+drop table if exists candidate;
 CREATE TABLE candidate (
     id SERIAL PRIMARY KEY,
-    name TEXT
+    name TEXT,
+    photo_Id int,
+    city_id int
 );
 
-ALTER TABLE candidate ADD COLUMN photoId int references photo(id);
-
+drop table if exists photo;
 CREATE TABLE photo (
     id SERIAL PRIMARY KEY,
     title TEXT
@@ -20,4 +22,9 @@ CREATE TABLE users (
     name TEXT,
     email TEXT,
     password TEXT
+);
+
+CREATE TABLE cities (
+    id SERIAL PRIMARY KEY,
+    nameCity TEXT
 );

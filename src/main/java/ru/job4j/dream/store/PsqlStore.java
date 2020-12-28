@@ -1,10 +1,7 @@
 package ru.job4j.dream.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import ru.job4j.dream.model.Candidate;
-import ru.job4j.dream.model.Photo;
-import ru.job4j.dream.model.Post;
-import ru.job4j.dream.model.User;
+import ru.job4j.dream.model.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.BufferedReader;
@@ -137,7 +134,10 @@ public class PsqlStore implements Store {
     public Collection<Candidate> findAllCandidates() {
         List<Candidate> result = new ArrayList<>();
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement("SELECT * FROM candidate")
+             PreparedStatement ps =  cn.prepareStatement(
+                     "SELECT candidate.id, name, photo_id, c.namecity FROM candidate "
+                             + "JOIN cities c on candidate.city_id = c.id"
+             )
         ) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
@@ -145,7 +145,8 @@ public class PsqlStore implements Store {
                             new Candidate(
                                     it.getInt("id"),
                                     it.getString("name"),
-                                    it.getInt("photoId")
+                                    it.getInt("photo_Id"),
+                                    it.getString("namecity")
                             )
                     );
                 }
@@ -159,10 +160,11 @@ public class PsqlStore implements Store {
     private Candidate createCandidate(Candidate candidate) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement(
-                     "INSERT INTO candidate(name, photoId) VALUES (?, ?)",
+                     "INSERT INTO candidate(name, photo_Id, city_id) VALUES (?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, candidate.getName());
             ps.setInt(2, candidate.getPhotoId());
+            ps.setInt(3, candidate.getCityId());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -212,7 +214,7 @@ public class PsqlStore implements Store {
                 result = new Candidate(
                         rs.getInt(1),
                         rs.getString("name"),
-                        rs.getInt("photoId")
+                        rs.getInt("photo_Id")
                 );
             }
         } catch (Exception e) {
@@ -323,4 +325,47 @@ public class PsqlStore implements Store {
         }
         return user;
     }
+
+    @Override
+    public City createCity(City city) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =  cn.prepareStatement(
+                     "INSERT INTO cities(namecity) VALUES (?)",
+                     PreparedStatement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, city.getNameCity());
+            ps.execute();
+            try (ResultSet id = ps.getGeneratedKeys()) {
+                if (id.next()) {
+                    city.setId(id.getInt(1));
+                }
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return city;
+    }
+
+    @Override
+    public Collection<City> findAllCity() {
+        List<City> result = new ArrayList<>();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =  cn.prepareStatement("SELECT * FROM cities;")
+        ) {
+            try (ResultSet it = ps.executeQuery()) {
+                while (it.next()) {
+                    result.add(
+                            new City(
+                                    it.getInt("id"),
+                                    it.getString("namecity")
+                            )
+                    );
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
 }

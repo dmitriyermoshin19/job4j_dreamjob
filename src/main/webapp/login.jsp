@@ -17,7 +17,24 @@
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
+    <script>
+        function validate() {
+            let fields = [$("#email"), $("#password")];
+            let result = true;
+            let answer = '';
+            for (let i = 0; i < fields.length; i++) {
+                if (fields[i].val() === "") {
+                    answer += fields[i].attr("placeholder") + "\n";
+                    result = false;
+                }
+            }
+            if (!result) {
+                alert(answer);
+            }
+            return result;
+        }
+    </script>
     <title>Работа мечты</title>
 </head>
 <body>
@@ -37,14 +54,14 @@
             <div class="card-body">
                 <form action="<%=request.getContextPath()%>/auth.do" method="post">
                     <div class="form-group">
-                        <label>Почта</label>
-                        <input type="text" class="form-control" name="email">
+                        <label for="email">Почта</label>
+                        <input type="text" class="form-control" name="email" id="email" placeholder="Введите ваш логин...">
                     </div>
                     <div class="form-group">
-                        <label>Пароль</label>
-                        <input type="text" class="form-control" name="password">
+                        <label for="password">Пароль</label>
+                        <input type="text" class="form-control" name="password" id="password" placeholder="Введите ваш пароль...">
                     </div>
-                    <button type="submit" class="btn btn-primary">Войти</button>
+                    <button type="submit" class="btn btn-primary" onclick="validate()">Войти</button>
                 </form>
             </div>
         </div>

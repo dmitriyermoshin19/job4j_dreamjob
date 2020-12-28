@@ -1,9 +1,6 @@
 package ru.job4j.dream.store;
 
-import ru.job4j.dream.model.Candidate;
-import ru.job4j.dream.model.Photo;
-import ru.job4j.dream.model.Post;
-import ru.job4j.dream.model.User;
+import ru.job4j.dream.model.*;
 
 import java.util.Collection;
 
@@ -11,6 +8,7 @@ public interface  Store {
     Collection<Post> findAllPosts();
     Collection<Candidate> findAllCandidates();
     Collection<String> findAllNamePhoto();
+    Collection<City> findAllCity();
     User findByEmail(String email);
 
     void savePost(Post post);
@@ -22,4 +20,5 @@ public interface  Store {
 
     Photo createPhoto(Photo photo);
     User createUser(User user);
+    City createCity(City city);
 }

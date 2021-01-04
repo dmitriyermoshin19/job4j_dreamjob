@@ -1,5 +1,6 @@
 package ru.job4j.dream.servlet;
 
+import org.apache.logging.log4j.LogManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
@@ -26,7 +27,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(PsqlStore.class)
+@PrepareForTest({PsqlStore.class, LogManager.class})
 public class PostServletTest {
 
     @Test
@@ -37,6 +38,7 @@ public class PostServletTest {
         HttpSession session = mock(HttpSession.class);
         Store store = MemStore.instOf();
 
+        PowerMockito.mockStatic(LogManager.class);
         PowerMockito.mockStatic(PsqlStore.class);
 
         when(PsqlStore.instOf()).thenReturn(store);
@@ -53,6 +55,7 @@ public class PostServletTest {
         HttpServletResponse resp = mock(HttpServletResponse.class);
         Store store = MemStore.instOf();
 
+        PowerMockito.mockStatic(LogManager.class);
         PowerMockito.mockStatic(PsqlStore.class);
 
         when(PsqlStore.instOf()).thenReturn(store);
